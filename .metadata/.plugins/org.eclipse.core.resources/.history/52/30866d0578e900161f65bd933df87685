@@ -1,0 +1,63 @@
+package util;
+
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+
+public class Dico {
+	String key;
+	String value = null;
+	List<String> values = null;
+	boolean is_dic = false;
+	public Dico(String key, String value) {
+		// TODO Auto-generated constructor stub
+		this.key = key;
+		this.value = value;
+	}
+	public Dico(String key, String[] values) {
+		// TODO Auto-generated constructor stub
+		this.key = key;
+		this.values = Arrays.asList(values);
+		this.is_dic = true;
+	}
+	public Dico() {
+		// TODO Auto-generated constructor stub
+	}
+	public void setKey(String key) {
+		this.key = key;
+	}
+	public void setValue(String value) {
+		this.value = value;
+	}
+	public void setValues(String[] values) {
+		this.values = Arrays.asList(values);
+		this.is_dic = true;
+	}
+	public boolean is_Dico() {
+		return is_dic == true;
+	}
+	public String getValue() {
+		if (this.value == null) {
+			return "";
+		}
+		return value;
+	}
+	public List<String> getValues() {
+		if (this.values == null) {
+			return new ArrayList<String>();
+		}
+		return values;
+	}
+	@Override
+	public String toString() {
+		// TODO Auto-generated method stub
+		String d = ""+this.key+":  " ;
+		if (this.is_Dico()) {
+			for (String string : values) {
+				d += string+" ";
+			}
+		}else{
+			d+=this.value;
+		}
+	}
+}

@@ -1,0 +1,17 @@
+package util.db;
+
+import java.util.ArrayList;
+import java.util.List;
+
+public class bd_Helper {
+
+	public static void main(String[] args) {
+		// TODO Auto-generated method stub
+
+	}
+	public List<String> name(String query) {
+		List<String> liste = new ArrayList<String>();
+		
+		return liste;
+	}
+}

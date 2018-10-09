@@ -1,0 +1,81 @@
+package util;
+
+import java.util.Arrays;  
+import java.util.ArrayList;
+import java.util.Enumeration;
+import java.util.List;
+
+import javax.servlet.http.HttpServletRequest;
+
+public class Parameters {
+	public List<Dico> parameters;
+	public static void main(String[] args) {
+		// TODO Auto-generated method stub
+
+	}
+	public Dico getDico(String key) {
+		for (Dico dico : parameters) {
+			if (dico.key == key) {
+				return dico;
+			}
+		}
+		return null;
+	}
+	public String getValue(String key) {
+			return getDico(key).getValue();
+	}
+	public List<String> getValues(String key) {
+		return getDico(key).getValues();
+}
+	public Parameters(HttpServletRequest req) {
+		parameters = new ArrayList<Dico>();
+		Enumeration<String> parameterNames = req.getParameterNames();
+		while (parameterNames.hasMoreElements()) {
+			Dico d = new Dico();
+			String paramName = parameterNames.nextElement();
+			d.setKey(paramName);
+			String[] paramValues = req.getParameterValues(paramName);
+			if (paramValues.length > 1) {
+				d.setValues(paramValues);
+			}else{
+				String paramValue = paramValues[0];
+				d.value=paramValue;
+			}
+			this.parameters.add(d);
+		}
+	
+	}
+	public Parameters() {
+		this.parameters = new ArrayList<Dico>();
+				}
+	public Parameters(List<Dico> l_dico) {
+		this.parameters = l_dico;
+	}
+	public void AddParam(Dico dico){
+		this.parameters.add(dico);
+	}
+	public boolean CheckIfErrParams(String[] params) {
+		List<String> l = Arrays.asList(params);
+		ArrayList<String> al = new ArrayList<String>(l);
+		
+		for (Dico dico : this.parameters) {
+			if (al.contains(dico.key)) {
+				al.remove(al.indexOf(dico.key));
+			}
+		}
+		if (al.size() > 0) {
+			return false;
+		}
+		return true;
+	}
+	@Override
+	public String toString() {
+		// TODO Auto-generated method stub
+		String d = "";
+		for (Dico dico : parameters) {
+			d += dico.toString();
+		}
+		return d;
+	}
+	
+}

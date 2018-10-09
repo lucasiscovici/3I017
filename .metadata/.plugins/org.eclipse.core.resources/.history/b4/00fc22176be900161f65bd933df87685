@@ -1,0 +1,11 @@
+package util;
+
+import java.io.IOException;
+
+import org.json.JSONException;
+
+public interface IParameters {
+	String[] getEntry = {};
+	public void koko() throws JSONException, IOException;
+
+}

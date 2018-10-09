@@ -1,0 +1,77 @@
+package user;
+
+import java.io.IOException;
+import java.lang.reflect.Parameter;
+import java.util.ArrayList;
+import java.util.List;
+
+import javax.servlet.ServletException;
+import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
+import org.json.JSONException;
+
+import util.Error;
+import util.IOLUCAS;
+import util.JSONHelper;
+import util.Parameters;
+import util.TOJSON;
+import util.io;
+import util.Dico;
+
+
+public class Login extends HttpServlet implements TOJSON, IOLUCAS  {
+
+	public static void main(String[] args) throws IOException {
+		Login d = new Login();
+		params = new Parameters();
+		params.AddParam(new Dico("login","lulu"));
+		d.koko(params);
+		
+	}
+	private String token;
+	private HttpServletResponse response = null;
+	private String[] getEntry = {"login","password"};
+	private static Parameters params;
+	
+	public void koko() throws IOException {
+		
+		if (params.CheckIfErrParams(getEntry)) {
+			 try {
+				io.print_json_or_print(response, Error.ErrArgs.to_JSON());
+
+			} catch (JSONException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}else{
+			//BD CONNEXION
+			String token = io.uniqueID();
+			try {
+				io.print_json_or_print(response,JSONHelper.to_json(this));
+				 
+			} catch (JSONException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
+	}
+	@Override
+	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+		// TODO Auto-generated method stub
+		//super.doGet(req, resp);
+		params = new Parameters(req);
+		this.response=resp;
+		koko(params);
+
+	}
+	public List<Dico> to_json() {
+		List<Dico> dic = new ArrayList<Dico>();
+		dic.add(new Dico("login",this.params.getValue("login")));
+		dic.add(new Dico("token",token));
+		dic.add(new Dico("id","0"));
+		return dic;
+	}
+	
+}

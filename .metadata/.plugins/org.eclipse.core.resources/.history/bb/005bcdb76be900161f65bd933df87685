@@ -1,0 +1,42 @@
+package friend;
+
+import java.io.IOException;
+
+import javax.servlet.ServletException;
+import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
+import org.json.JSONException;
+
+import util.Error;
+import util.IOLUCAS;
+import util.io;
+
+public class Search extends HttpServlet implements IOLUCAS {
+	public HttpServletResponse response = null;
+
+
+	public static void main(String[] args) {
+		// TODO Auto-generated method stub
+
+	}
+	public void koko() throws JSONException, IOException {
+			
+
+	}
+	@Override
+	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+		// TODO Auto-generated method stub
+		this.response  = resp;
+		req.
+		try {
+			koko();
+		} catch (JSONException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+	
+	
+}

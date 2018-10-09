@@ -1,0 +1,5 @@
+package util.db;
+
+public interface DBStatic {
+	public static String mysql_host = "li328.lip6.fr"; 
+}

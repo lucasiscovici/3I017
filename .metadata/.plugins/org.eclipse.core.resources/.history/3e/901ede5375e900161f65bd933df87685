@@ -1,0 +1,49 @@
+package util.db;
+
+import java.awt.Cursor;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
+
+import util.Dico;
+
+import com.mysql.jdbc.ResultSetMetaData;
+import com.mysql.jdbc.Statement;
+
+public class bd_Helper {
+
+	public static void main(String[] args) {
+		// TODO Auto-generated method stub
+
+	}
+	public static Statement giveMeAnStatement() throws SQLException {
+		return (Statement) Database.getMySQLConnection().createStatement();
+	}
+	public static List<String> getColumnsNames(ResultSet rs) throws SQLException {
+		List<String> liste = new ArrayList<String>();
+		ResultSetMetaData rsmd = (ResultSetMetaData) rs.getMetaData();
+		int columnCount = rsmd.getColumnCount();
+
+		// The column count starts from 1
+		for (int i = 1; i <= columnCount; i++ ) {
+		  liste.add(rsmd.getColumnName(i));
+		}
+		return liste;
+	}
+	public static List<Dico> select(String query) throws SQLException {
+		List<Dico> liste = new ArrayList<Dico>();
+		Statement s =  giveMeAnStatement();
+		ResultSet r = s.executeQuery(query);
+		List<String> columns = getColumnsNames(r);
+		while (r.next()) {
+			for (String string : columns) {
+				liste.add(new Dico(string, r.getString(string)));
+			}
+			
+		}
+		r.close();
+		s.close();	
+		return liste;
+	}
+}

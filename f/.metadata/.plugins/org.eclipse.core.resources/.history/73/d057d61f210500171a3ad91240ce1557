@@ -1,0 +1,63 @@
+
+$(function() {
+	function template(arr,name){
+    html = $("[data-template='"+name+"']").html();
+    for(key in arr){
+        html.replace("{{"+key+"}}",arr[key]);
+    }
+    return html;
+	}
+});
+  
+
+
+	 function Message(m) {
+		  that={};
+		  obj=m;
+    that.date=obj["date"];
+    that.id = obj["id"];
+    that.login = obj["login"];
+    that.id_user = obj["id_user"];
+    that.text = obj["text"];
+    //this.language= obj["lg"];
+    that.nb_like =obj["nb_likes"];
+    that.nb_comments = obj["nb_coms"];
+  
+	Message.getHtml = function() {
+		 return getHtml()
+		
+  	}
+  function getHtml() {
+	  html ="";
+	  arr={};
+    arr.text = that.text;
+    arr.name = that.login;
+	  return template(arr,"message");
+  }
+  return that;
+
+}
+
+
+
+	function Messages(m) {
+    that={}
+    that.m=m["response"]["messages"];
+    if (typeof(that.m)=="string"){
+    	that.m = [];
+    }
+  
+	Messages.getHtml = function() {
+		return this.getHtml();
+  	}
+  function getHtml(a) {
+      html = "";
+      for (var i = 0; i < that.m.length; i++) {
+    	  html+=new Message(that.m[i]).getHTML();
+      }
+      return html;
+  }
+  return that;
+
+
+}

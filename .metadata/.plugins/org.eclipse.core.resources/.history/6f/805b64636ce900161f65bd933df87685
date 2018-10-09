@@ -1,0 +1,39 @@
+package user;
+
+import java.io.IOException;
+
+import javax.servlet.ServletException;
+import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
+import org.json.JSONException;
+
+import util.IOLUCAS;
+import util.IParameters;
+
+public class Logout extends HttpServlet implements IOLUCAS, IParameters {
+	public HttpServletResponse response = null;
+
+	public static void main(String[] args) {
+		// TODO Auto-generated method stub
+
+	}
+	@Override
+	public void koko() throws JSONException, IOException {
+		// TODO Auto-generated method stub
+		
+	}
+
+protected void doGet(HttpServletRequest req, HttpServletResponse resp)
+		throws ServletException, IOException {
+	// TODO Auto-generated method stub
+	response = resp;
+	try {
+		koko();
+	} catch (JSONException e) {
+		// TODO Auto-generated catch block
+		e.printStackTrace();
+	}
+}
+}

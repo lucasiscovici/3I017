@@ -1,0 +1,62 @@
+
+(function() {
+	function template(arr,name){
+    html = $("[data-template='"+name+"']").html();
+    for(key in arr){
+        html.replace("{{"+key+"}}",arr[key]);
+    }
+    return html;
+	}
+    if (typeof Message !== "undefined") {
+    return;
+  	}
+
+	this.Message = function(m) {
+		obj = m;
+    this.date=obj["date"];
+    this.id = obj["id"];
+    this.login = obj["login"];
+    this.id_user = obj["id_user"];
+    this.text = obj["text"];
+    //this.language= obj["lg"];
+    this.nb_like =obj["nb_likes"];
+    this.nb_comments = obj["nb_coms"];
+  }
+	this.getHTML = function() {
+		 return getHTML()
+		
+  	}
+  function getHTML(a) {
+	  html ="";
+	  arr={};
+    arr.text = this.text;
+    arr.name = this.login;
+	  return template(arr,"message");
+  }
+
+  }());
+
+(function() {
+    if (typeof Messages !== "undefined") {
+    return;
+  	}
+ var m = [];
+	this.Messages = function(m) {
+    this.m=m["response"]["messages"];
+    if (typeof(this.m)=="string"){
+    	this.m = [];
+    }
+  }
+	this.getHTML = function() {
+		return getHTML();
+  	}
+  function getHTML(a) {
+      html = "";
+      for (var i = 0; i < this.m.length; i++) {
+    	  html+=(new Message(this.m[i])).getHTML();
+      }
+      return html;
+  }
+
+  }(jQuery));
+

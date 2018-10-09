@@ -1,0 +1,12 @@
+package util.db;
+
+public class db_User_Helper {
+
+	public static void main(String[] args) {
+		// TODO Auto-generated method stub
+
+	}
+	public boolean CheckIfExist(String login) {
+		return (int) bd_Helper.select("SELECT COUNT(id) as count FROM User WHERE login = "+login).getValue("count") > 0; 
+	}
+}

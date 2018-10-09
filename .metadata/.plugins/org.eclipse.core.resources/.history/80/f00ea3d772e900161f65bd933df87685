@@ -1,0 +1,12 @@
+package util.db;
+
+public class bd_Helper {
+
+	public static void main(String[] args) {
+		// TODO Auto-generated method stub
+
+	}
+	public List<String> name(String query) {
+		
+	}
+}

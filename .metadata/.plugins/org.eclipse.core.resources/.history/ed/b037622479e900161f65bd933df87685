@@ -1,0 +1,70 @@
+package user;
+
+import java.io.IOException;
+import java.sql.SQLException;
+
+import javax.servlet.ServletException;
+import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
+import org.json.JSONException;
+
+import util.Error;
+import util.IOLUCAS;
+import util.Parameters;
+import util.io;
+import util.db.db_Helper;
+import util.db.db_User_Helper;
+
+public class CreateUser extends HttpServlet implements IOLUCAS {
+
+	public static void main(String[] args) {
+		// TODO Auto-generated method stub
+		koko();
+	}
+	private String[] getEntry = {"prenom","nom","login","password"};
+	public HttpServletResponse response = null;
+	private static Parameters params;
+
+	public void koko() throws JSONException, IOException, NumberFormatException, SQLException {
+		io.print_text(response, params);
+		io.print_text(response, params.CheckIfErrParams(getEntry));
+		if (params.CheckIfErrParams(getEntry)) {
+			io.print_json_or_print(response, Error.ErrArgs.to_JSON());
+		}else{
+			String login = params.getValue("login");
+			// TRAITEMENT 1 -> VERIF DISPO LOGIN 
+			// CREATE USER WITH DB
+			io.print_text(response, db_User_Helper.CheckIfExist(login));
+			if (db_User_Helper.CheckIfExist(login)) {
+				io.print_json_or_print(response, Error.LoginExist.to_JSON());
+			}
+		}
+	}
+	protected void doGet(HttpServletRequest req, HttpServletResponse resp)
+			throws ServletException, IOException {
+		// TODO Auto-generated method stub
+		this.response=resp;
+		params = new Parameters(req);
+
+		try {
+			koko();
+		} catch (JSONException e) {
+			// TODO Auto-generated catch block
+			io.print_text(resp, "error");
+			e.printStackTrace();
+		} catch (NumberFormatException e) {
+			io.print_text(resp, "error");
+
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (SQLException e) {
+			io.print_text(resp, "error");
+
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+
+}
